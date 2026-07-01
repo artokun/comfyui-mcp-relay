@@ -1,0 +1,19 @@
+name = "comfyui-mcp-relay"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+[[durable_objects.bindings]]
+name = "RELAY"
+class_name = "Relay"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Relay"]
+
+# Optional shared anti-abuse key so randoms on the internet can't spin up
+# sessions on your Worker and burn your Durable Object usage. Distinct from the
+# per-session bridge token (which gates actual bridge content) — this just gates
+# who can open a session at all. Set with:
+#   wrangler secret put RELAY_ACCESS_KEY
+# If unset, anyone can open a session (still content-gated by the per-session
+# token) — fine to start with, recommended once this has a public URL.
